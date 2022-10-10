@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('amount');
+            $table->integer('total_amount');
             $table->integer('sell_amount')->default(0);
             $table->integer('alert_amount')->default(0);
             $table->integer('price');
