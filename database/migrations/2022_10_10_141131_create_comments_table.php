@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rewards', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('detail')->nullable();
-            $table->boolean('is_active');
-            $table->integer('point')->default(0);
-            $table->integer('total_amount')->default(0);
-            $table->integer('balance')->default(0);
+            $table->foreignIdFor(\App\Models\Product::class); // foreign key `product_id`
+            $table->text('message');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rewards');
+        Schema::dropIfExists('comments');
     }
 };
