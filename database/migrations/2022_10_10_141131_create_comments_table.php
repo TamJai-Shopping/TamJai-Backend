@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reward_codes', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Reward::class);
-            $table->string('code');
-            $table->foreignIdFor(\App\Models\User::class)->nullable();
-            $table->timestamp('redeemed_at')->nullable();
+            $table->foreignIdFor(\App\Models\Product::class); // foreign key `product_id`
+            $table->text('message');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reward_codes');
+        Schema::dropIfExists('comments');
     }
 };

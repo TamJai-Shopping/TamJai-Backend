@@ -13,19 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('shops', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('email')->unique();
-            $table->string('role')->default('USER');
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->string('image_path')->nullable()->default(null);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->boolean('banned')->default(false);
-            $table->string('phone_number');
-            $table->rememberToken();
+            $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('shops');
     }
 };
