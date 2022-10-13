@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('role')->default('USER');
             $table->bigInteger('point')->default(0);
             $table->string('image_path')->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
