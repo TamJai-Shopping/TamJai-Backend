@@ -41,3 +41,9 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 });
+
+Route::get('/products/search', [\App\Http\Controllers\Api\ProductController::class, 'search']);
+Route::apiResource('/products', \App\Http\Controllers\Api\ProductController::class);
+
+Route::get('/shops/search', [\App\Http\Controllers\Api\ShopController::class, 'search']);
+Route::apiResource('/shops', \App\Http\Controllers\Api\ShopController::class);
