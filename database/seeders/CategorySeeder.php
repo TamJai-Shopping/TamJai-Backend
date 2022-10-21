@@ -16,13 +16,23 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $this->command->line("Generating category");
-        $category = new Category;
-        $category->name = "Book";
-        $category->save();
+        $category = Category::first();
+        if (!$category) {
+            $this->command->line("Generating category");
+            $categories = ['Book', 'Food', 'Technology'];
+            collect($categories)->each(function ($category_name, $key) {
+                $category = new Category;
+                $category->name = $category_name;
+                $category->save();
+            });
+        }
 
         $this->command->line("sync category to product");
-        $product = Product::find(1);
-        $product->categories()->sync(1);
+        $products = product::get();
+        $products->each(function($product, $key) {
+            $n = fake()->numberBetween(1, 2);
+            $category_ids = Category::inRandomOrder()->limit($n)->get()->pluck(['id'])->all();
+            $product->categories()->sync($category_ids);
+        });
     }
 }

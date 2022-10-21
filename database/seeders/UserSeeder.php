@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             $user->role = 'USER';
             $user->email = 'aungpor.napat@gmail.com';
             $user->password = Hash::make('userpass');
+            $user->phone_number = "0811234445";
             $user->save();
         }
     }

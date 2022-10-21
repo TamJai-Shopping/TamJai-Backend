@@ -23,7 +23,8 @@ class ProductResource extends JsonResource
         'alert_amount'=> $this->alert_amount,
         'image_path'=> $this->image_path,
         'price'=> $this->price,
-        'rating'=> $this->rating
+        'rating'=> $this->rating,
+        'shop_id'=> $this->shop_id
         ];
     }
 }

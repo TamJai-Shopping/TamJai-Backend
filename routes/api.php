@@ -47,3 +47,12 @@ Route::apiResource('/products', \App\Http\Controllers\Api\ProductController::cla
 
 Route::get('/shops/search', [\App\Http\Controllers\Api\ShopController::class, 'search']);
 Route::apiResource('/shops', \App\Http\Controllers\Api\ShopController::class);
+
+Route::get('/categories', [\App\Http\Controllers\Api\CategoryController::class]);
+Route::apiResource('/categories', \App\Http\Controllers\Api\CategoryController::class);
+
+Route::get('/orders', [\App\Http\Controllers\Api\OrderController::class]);
+Route::apiResource('/orders', \App\Http\Controllers\Api\OrderController::class);
+
+Route::get('/order-items', [\App\Http\Controllers\Api\OrderItemController::class]);
+Route::apiResource('/order-items', \App\Http\Controllers\Api\OrderItemController::class);
