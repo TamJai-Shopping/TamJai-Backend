@@ -15,8 +15,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categorys = Category::get();
-        return CategoryResource::collection($categorys);
+        $categorys = Category::with('products')->get();
+        return $categorys;
     }
 
     public function store(Request $request){
