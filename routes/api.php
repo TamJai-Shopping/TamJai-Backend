@@ -51,6 +51,7 @@ Route::apiResource('/shops', \App\Http\Controllers\Api\ShopController::class);
 Route::get('/categories', [\App\Http\Controllers\Api\CategoryController::class]);
 Route::apiResource('/categories', \App\Http\Controllers\Api\CategoryController::class);
 
+Route::get('/orders/search', [\App\Http\Controllers\Api\OrderController::class, 'search']);
 Route::get('/orders', [\App\Http\Controllers\Api\OrderController::class]);
 Route::apiResource('/orders', \App\Http\Controllers\Api\OrderController::class);
 

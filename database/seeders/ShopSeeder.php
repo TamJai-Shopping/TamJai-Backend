@@ -24,7 +24,7 @@ class ShopSeeder extends Seeder
         $shop = new Shop;
         $shop->name = "shop2";
         $shop->description = "shop test";
-        $shop->user_id = "1";
+        $shop->user_id = "2";
         $shop->save();
     }
 }
