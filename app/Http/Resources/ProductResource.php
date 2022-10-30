@@ -24,7 +24,8 @@ class ProductResource extends JsonResource
         'image_path'=> $this->image_path,
         'price'=> $this->price,
         'rating'=> $this->rating,
-        'shop_id'=> $this->shop_id
+        'shop_id'=> $this->shop_id,
+        'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }

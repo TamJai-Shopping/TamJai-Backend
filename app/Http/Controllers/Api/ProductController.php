@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('categories')->get();
-        return $products;
+        return ProductResource::collection($products);
     }
 
     public function store(Request $request){
