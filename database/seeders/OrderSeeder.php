@@ -22,6 +22,7 @@ class OrderSeeder extends Seeder
         $order->total_price = 2500;
         $order->package_number = "PAC001";
         $order->location = "Wonderland";
+        $order->shop_id = "1" ;
         $order->save();
 
     }
