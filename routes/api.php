@@ -60,3 +60,6 @@ Route::apiResource('/order-items', \App\Http\Controllers\Api\OrderItemController
 
 Route::get('/baskets', [\App\Http\Controllers\Api\BasketController::class]);
 Route::apiResource('/baskets', \App\Http\Controllers\Api\BasketController::class);
+
+Route::get('/comments', [\App\Http\Controllers\Api\CommentController::class]);
+Route::apiResource('/comments', \App\Http\Controllers\Api\CommentController::class);
