@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('baskets', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->foreignIdFor(\App\Models\Product::class);
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

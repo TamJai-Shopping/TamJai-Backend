@@ -15,7 +15,7 @@ class ShopController extends Controller
 
     public function index()
     {
-        $shops = Shop::get();
+        $shops = Shop::with('products', 'orders')->get();
         return ShopResource::collection($shops);
     }
 

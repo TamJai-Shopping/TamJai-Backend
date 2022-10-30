@@ -57,3 +57,6 @@ Route::apiResource('/orders', \App\Http\Controllers\Api\OrderController::class);
 
 Route::get('/order-items', [\App\Http\Controllers\Api\OrderItemController::class]);
 Route::apiResource('/order-items', \App\Http\Controllers\Api\OrderItemController::class);
+
+Route::get('/baskets', [\App\Http\Controllers\Api\BasketController::class]);
+Route::apiResource('/baskets', \App\Http\Controllers\Api\BasketController::class);

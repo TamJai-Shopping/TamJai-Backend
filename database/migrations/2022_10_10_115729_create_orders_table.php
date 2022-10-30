@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('total_price');
             $table->string('package_number');
             $table->string('location');
-            $table->foreignIdFor(\App\Models\Shop::class);
+            $table->foreignIdFor(\App\Models\Shop::class);//orderร้านไหน
+            $table->foreignIdFor(\App\Models\User::class);//ระบุว่าเป็นของuserคนไหน
             $table->timestamps();
         });
     }

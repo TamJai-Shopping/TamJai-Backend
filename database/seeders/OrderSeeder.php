@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 
 class OrderSeeder extends Seeder
 {
@@ -23,7 +24,9 @@ class OrderSeeder extends Seeder
         $order->package_number = "PAC001";
         $order->location = "Wonderland";
         $order->shop_id = "1" ;
+        $order->user_id= "1";
         $order->save();
 
+        Order::factory(20)->create();
     }
 }

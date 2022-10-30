@@ -19,7 +19,9 @@ class ShopResource extends JsonResource
             'name'=> $this->name,
             'description'=> $this->description,
             'image_path'=> $this->image_path,
-            'user_id'=> $this->user_id
+            'user_id'=> $this->user_id,
+            'products' => ProductResource::collection($this->whenLoaded('products')),
+            'orders' => OrderResource::collection($this->whenLoaded('orders')),
             ];
     }
 }
