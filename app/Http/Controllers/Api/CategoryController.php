@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+        return (new CategoryResource($category->loadMissing(['products'])))->response();
     }
 
     public function update(Request $request, Category $category)

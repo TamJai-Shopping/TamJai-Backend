@@ -17,7 +17,7 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        $orderitems = OrderItem::with(['order','product'])->get();
+        $orderitems = OrderItem::with(['orders','products'])->get();
         return OrderItemResource::collection($orderitems);
     }
 
@@ -40,7 +40,7 @@ class OrderItemController extends Controller
      */
     public function show(OrderItem $orderItem)
     {
-        return new OrderItemResource($orderItem);
+        return new OrderItemResource($orderItem->loadMissing(['orders','products']))->response();
     }
 
     /**

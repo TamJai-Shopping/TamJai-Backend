@@ -42,7 +42,7 @@ class ShopController extends Controller
 
     public function show(Shop $shop)
     {
-        return new ShopResource($shop);
+        return (new ShopResource($shop->loadMissing(['products','orders'])))->response();
     }
 
     public function update(Request $request, Shop $shop)
