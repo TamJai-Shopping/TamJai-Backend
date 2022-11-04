@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Basket;
 
 class BasketSeeder extends Seeder
 {
@@ -14,9 +15,10 @@ class BasketSeeder extends Seeder
      */
     public function run()
     {
-        'id' => $this->id,
-        'products' => ProductResource::collection($this->whenLoaded('products')),
-        'quantity' => $this->quantity
-
+        $this->command->line("Generating baskets");
+        $basket = new Basket;
+        $basket->product_id= 1;
+        $basket->quantity = 2;
+        $basket->save();
     }
 }

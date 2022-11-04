@@ -19,7 +19,7 @@ class BasketController extends Controller
      */
     public function index()
     {
-        $baskets = Basket::with('products')->get();
+        $baskets = Basket::get();
         return BasketResource::collection($baskets);
     }
 
@@ -58,7 +58,7 @@ class BasketController extends Controller
      */
     public function show(Basket $basket)
     {
-        return (new BasketResource($basket->loadMissing(['products'])))->response();
+        return new BasketResource($basket);
     }
 
     /**

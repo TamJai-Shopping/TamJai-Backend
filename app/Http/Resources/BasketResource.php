@@ -16,8 +16,9 @@ class BasketResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name'=> $this->name,
-            'products' => ProductResource::collection($this->whenLoaded('products')),
-            ];
+            'quantity' => $this->quantity,
+            'product_id' => $this->product_id,
+            
+        ];
     }
 }
