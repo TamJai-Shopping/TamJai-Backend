@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('baskets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
-            $table->integer('selectShop');
+            $table->integer('selectShop')->nullable()->default(null);
             $table->timestamps();
         });
     }
