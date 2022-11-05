@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('baskets', function (Blueprint $table) {
+        Schema::create('basket_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class);
-            $table->integer('selectShop');
+            $table->foreignIdFor(\App\Models\Basket::class); 
+            $table->foreignIdFor(\App\Models\Product::class);
+            $table->foreignIdFor(\App\Models\Shop::class);
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('baskets');
+        Schema::dropIfExists('basket_items');
     }
 };

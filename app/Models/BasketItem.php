@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Basket extends Model
+class BasketItem extends Model
 {
     use HasFactory;
 
-    public function basketItems()
+    public function basket()
     {
-        return $this->hasMany(BasketItem::class);
+        return $this->belongsTo(Basket::class);
     }
 }

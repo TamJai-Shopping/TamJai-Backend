@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Basket;
 use App\Models\BasketItem;
 use App\Models\Shop;
-use App\Http\Resources\BasketResource;
+use App\Http\Resources\BasketItemResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class BasketController extends Controller
+class BasketItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +18,8 @@ class BasketController extends Controller
      */
     public function index()
     {
-        $baskets = Basket::with('basketItems')->get();
-        return BasketResource::collection($baskets);
+        $baskets = BasketItem::with(['basket'])->get();
+        return BasketItemResource::collection($baskets);
     }
 
     /**
@@ -31,21 +30,23 @@ class BasketController extends Controller
      */
     public function store(Request $request)
     {
-        $basket = new Basket();
-        $basket->user_id= $request->get('user_id');
-        $basket->selectShop = $request->get('selectShop');
+        $basketItem = new BasketItem();
+        $basketItem->basket_id= $request->get('basket_id');
+        $basketItem->product_id= $request->get('product_id');
+        $basketItem->shop_id = $request->get('shop_id');
+        $basketItem->quantity = $request->get('quantity');
 
-        if ($basket->save()) {
+        if ($basketItem->save()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Basket created with id '.$basket->id,
-                'basket_id' => $basket->id
+                'message' => 'BasketItem created with id '.$basketItem->id,
+                'basket_id' => $basketItem->id
             ], Response::HTTP_CREATED);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Basket creation failed'
+            'message' => 'BasketItem creation failed'
         ], Response::HTTP_BAD_REQUEST);
         
     }
@@ -53,57 +54,59 @@ class BasketController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Basket  $basket
+     * @param  \App\Models\BasketItem  $basketItem
      * @return \Illuminate\Http\Response
      */
-    public function show(Basket $basket)
+    public function show(BasketItem $basketItem)
     {
-        return (new BasketResource($basket->loadMissing(['basket_items'])))->response();
+        return (new BasketItemResource($basketItem->loadMissing('basket')))->response();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Basket  $basket
+     * @param  \App\Models\BasketItem  $basketItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Basket $basket)
+    public function update(Request $request, BasketItem $basketItem)
     {
-        if($request->has('selectShop'))$basket->selectShop = $request->get('selectShop');
-        if($request->has('user_id'))$basket->user_id= $request->get('user_id');
-        if ($basket->save()) {
+        if($request->has('quantity'))$basketItem->quantity = $request->get('quantity');
+        if($request->has('product_id'))$basketItem->product_id= $request->get('product_id');
+        if($request->has('basket_id'))$basketItem->basket_id= $request->get('basket_id');
+        if($request->has('shop_id'))$basketItem->shop_id= $request->get('shop_id');
+        if ($basketItem->save()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Basket updated with id '.$basket->id,
-                'basket_id' => $basket->id
+                'message' => 'BasketItem updated with id '.$basketItem->id,
+                'basket_id' => $basketItem->id
             ], Response::HTTP_OK);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Basket update failed'
+            'message' => 'BasketItem update failed'
         ], Response::HTTP_BAD_REQUEST);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Basket  $basket
+     * @param  \App\Models\BasketItem  $basketItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Basket $basket)
+    public function destroy(BasketItem $basketItem)
     {
-        $id = $basket->id;
-        if($basket->delete()){
+        $id = $basketItem->id;
+        if($basketItem->delete()){
             return respone()->json([
                 'success' => true,
-                'message' => "Basket id{$id} with deleted"
+                'message' => "BasketItem id{$id} with deleted"
             ], Response::HTTP_OK);
         }
         return response()->json([
             'success' => false,
-            'message' => "Basket id{$id} delete failed"
+            'message' => "BasketItem id{$id} delete failed"
         ], Response::HTTP_BAD_REQUEST);
     }
 
@@ -111,7 +114,7 @@ class BasketController extends Controller
         $q = $request->query('q'); // เป็นตัวบอกตัวแปลที่ส่งเข้ามา ซึ่งจะต้องมี ? ก่อนแล้วค่อยชื่อตัวแปล ขั้นด้วย & เช่น
         // ?q=word&sort=DESC
         // $sort_variable = $request->query('sort') ?? 'asc';
-        $baskets = Basket::where('id', 'LIKE', "%{$q}%")
+        $baskets = BasketItem::where('id', 'LIKE', "%{$q}%")
                          ->get();
         return $baskets;
     }

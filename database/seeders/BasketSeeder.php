@@ -17,8 +17,8 @@ class BasketSeeder extends Seeder
     {
         $this->command->line("Generating baskets");
         $basket = new Basket;
-        $basket->product_id= 1;
-        $basket->quantity = 2;
+        $basket->user_id= 1;
+        $basket->selectShop= 1;
         $basket->save();
     }
 }

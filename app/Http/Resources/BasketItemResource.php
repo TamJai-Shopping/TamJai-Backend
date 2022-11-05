@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BasketResource extends JsonResource
+class BasketItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,12 @@ class BasketResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'selectShop' => $this->selectShop,
-            'basketItems' => BasketItemResource::collection($this->whenLoaded('basketItems')),          
+            'baskets' => $this->whenLoaded('basket'),
+            'product_id' => $this->product_id,
+            'shop_id' => $this->shop_id,
+            'quantity' => $this->quantity,
+            
+            
             
         ];
     }
