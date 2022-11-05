@@ -98,8 +98,9 @@ class ProductController extends Controller
         $q = $request->query('q'); // เป็นตัวบอกตัวแปลที่ส่งเข้ามา ซึ่งจะต้องมี ? ก่อนแล้วค่อยชื่อตัวแปล ขั้นด้วย & เช่น
         // ?q=word&sort=DESC
         // $sort_variable = $request->query('sort') ?? 'asc';
-        $products = Product::get();
-        return $products;
+        $product = Product::where('name', 'LIKE', "%{$q}%")
+            ->get();
+        return $product;
     }
 
 }
