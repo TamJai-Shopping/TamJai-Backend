@@ -66,3 +66,6 @@ Route::apiResource('/basket-item', \App\Http\Controllers\Api\BasketItemControlle
 
 Route::get('/comments', [\App\Http\Controllers\Api\CommentController::class]);
 Route::apiResource('/comments', \App\Http\Controllers\Api\CommentController::class);
+
+Route::get('/images/search', [\App\Http\Controllers\Api\ImageController::class, 'search']);
+Route::post('/images', [\App\Http\Controllers\Api\ImageController::class, 'store']);

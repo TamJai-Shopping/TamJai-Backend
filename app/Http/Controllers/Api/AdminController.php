@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Http\Resources\OrderItemResource;
 use Illuminate\Http\Request;
 
-class OrderItemController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,7 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        $orderitems = OrderItem::with(['orders','products'])->get();
-        return OrderItemResource::collection($orderitems);
+        return [];
     }
 
     /**
@@ -35,22 +31,22 @@ class OrderItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrderItem  $orderItem
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(OrderItem $orderItem)
+    public function show($id)
     {
-        return new OrderItemResource($orderItem->loadMissing(['orders','products']));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrderItem  $orderItem
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OrderItem $orderItem)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -58,10 +54,10 @@ class OrderItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrderItem  $orderItem
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrderItem $orderItem)
+    public function destroy($id)
     {
         //
     }
