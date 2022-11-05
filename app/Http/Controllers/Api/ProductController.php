@@ -92,13 +92,12 @@ class ProductController extends Controller
             'product_id' => $product->id
         ], Response::HTTP_BAD_REQUEST);
     }
-    
+
     public function search(Request $request) {
-        $q = $request->query('q'); // เป็นตัวบอกตัวแปลที่ส่งเข้ามา ซึ่งจะต้องมี ? ก่อนแล้วค่อยชื่อตัวแปล ขั้นด้วย & เช่น
-        // ?q=word&sort=DESC
-        // $sort_variable = $request->query('sort') ?? 'asc';
-        $products = Product::get();
-        return $products;
+        $q = $request->query('q');
+        $product = Product::where('name', 'LIKE', "%{$q}%")
+            ->get();
+        return $product;
     }
 
 }
