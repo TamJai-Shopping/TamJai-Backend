@@ -49,7 +49,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return (new ProductResource($product->loadMissing(['categories','comments'])))->response();
+        return (new ProductResource($product->loadMissing(['categories', 'comments', 'reviews'])))->response();
     }
 
     public function update(Request $request, Product $product)

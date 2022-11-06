@@ -26,6 +26,8 @@ class UserSeeder extends Seeder
             $user->phone_number = "0811234445";
             $user->save();
         }
+
+        $user = User::where('email', 'Irisia@gmail.com')->first();
         if (!$user) {
             $user = new User;
             $user->name = "Ton";

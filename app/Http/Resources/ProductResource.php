@@ -27,6 +27,7 @@ class ProductResource extends JsonResource
         'shop_id'=> $this->shop_id,
         'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         'comments' => CommentResource::collection($this->whenLoaded('comments')),
+        'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
         ];
     }
 }

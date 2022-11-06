@@ -69,3 +69,5 @@ Route::apiResource('/comments', \App\Http\Controllers\Api\CommentController::cla
 
 Route::get('/images/search', [\App\Http\Controllers\Api\ImageController::class, 'search']);
 Route::post('/images', [\App\Http\Controllers\Api\ImageController::class, 'store']);
+
+Route::apiResource('/reviews', \App\Http\Controllers\Api\ReviewController::class);

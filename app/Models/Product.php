@@ -24,6 +24,10 @@ class Product extends Model
         return $this->belongsTo(Shop::class);
     }
 
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
     // public function basket()
     // {
     //     return $this->belongsTo(Basket::class);

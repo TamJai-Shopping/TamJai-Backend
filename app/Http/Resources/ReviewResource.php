@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class ReviewResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +17,11 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'point' => $this->point,
-            'image_path' => $this->image_path,
-            'shop' => ShopResource::collection($this->whenLoaded('shops')),
-            'orders' => OrderResource::collection($this->whenLoaded('orders')),
+            'user_id' => $this->user_id,
+            'username' => User::find($this->user_id)->name,
+            'product_id' => $this->product_id,
+            'rating' => $this->rating,
+            'detail' => $this->detail
         ];
     }
 }
