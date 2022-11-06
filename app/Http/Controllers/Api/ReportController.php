@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 use App\Models\Report;
+use Illuminate\Http\Response;
 
 class ReportController extends Controller
 {
@@ -36,7 +38,28 @@ class ReportController extends Controller
      */
     public function store(StoreReportRequest $request)
     {
-        //
+        if ($request->has('product_id') && $request->has('user_id') &&
+            $request->has('topic')) {
+            $report = new Report();
+            $report->product_id = $request->get('product_id');
+            $report->user_id = $request->get('user_id');
+            $report->topic = $request->get('topic');
+            if ($request->has('detail')) { $report->detail = $request->get('detail'); }
+            if ($report->save())
+                return \response()->json([
+                    'success' => true,
+                    'message' => 'Create success with report id ' . $report->id
+                ], Response::HTTP_CREATED);
+            else
+                return \response()->json([
+                    'success' => false,
+                    'message' => 'Create fail'
+                ], Response::HTTP_BAD_REQUEST);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Argument missing'
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     /**

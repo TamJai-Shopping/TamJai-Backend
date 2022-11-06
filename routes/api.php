@@ -79,3 +79,4 @@ Route::get('/images/search', [\App\Http\Controllers\Api\ImageController::class, 
 Route::post('/images', [\App\Http\Controllers\Api\ImageController::class, 'store']);
 
 Route::apiResource('/reviews', \App\Http\Controllers\Api\ReviewController::class);
+Route::apiResource('/report', \App\Http\Controllers\Api\ReportController::class);
