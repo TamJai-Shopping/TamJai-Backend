@@ -22,6 +22,7 @@ class CategoryController extends Controller
     public function store(Request $request){
         $category = new Category();
         $category->name = $request->get('name');
+        $shop = $request->get('shop');
 
         if ($category->save()) {
             return response()->json([
@@ -76,12 +77,5 @@ class CategoryController extends Controller
             'category_id' => $category->id
         ], Response::HTTP_BAD_REQUEST);
     }
-    
-    public function search(Request $request) {
-        $q = $request->query('q'); // เป็นตัวบอกตัวแปลที่ส่งเข้ามา ซึ่งจะต้องมี ? ก่อนแล้วค่อยชื่อตัวแปล ขั้นด้วย & เช่น
-        // ?q=word&sort=DESC
-        // $sort_variable = $request->query('sort') ?? 'asc';
-        $categorys = Category::get();
-        return $categorys;
-    }
+
 }

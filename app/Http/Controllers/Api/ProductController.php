@@ -100,4 +100,14 @@ class ProductController extends Controller
         return $product;
     }
 
+//    public function selectType(Request $request)
+//    {
+//        $categories = $request->get('categories');
+//        $id = $categories->id;
+//        $product = Product::whereHas(['categories' => function ($query) use($id) {
+//            $query->where('name', 'like', '%' . $id . '%');
+//        }])->get();
+//        return $product;
+//    }
+
 }
