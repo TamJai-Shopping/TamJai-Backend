@@ -84,10 +84,10 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         if($request->has('status'))$order->status = $request->get('status');
-        if($request->has('total_price'))$order->total_price = $request->get('total_price');
+        //if($request->has('total_price'))$order->total_price = $request->get('total_price');
         if($request->has('package_number'))$order->package_number = $request->get('package_number');
-        if($request->has('location'))$order->location = $request->get('location');
-        if($request->has('shop_id'))$order->shop_id= $request->get('shop_id');
+        //if($request->has('location'))$order->location = $request->get('location');
+        //if($request->has('shop_id'))$order->shop_id= $request->get('shop_id');
         if ($order->save()) {
             return response()->json([
                 'success' => true,

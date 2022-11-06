@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderItemResource extends JsonResource
@@ -18,6 +18,7 @@ class OrderItemResource extends JsonResource
         'id' => $this->id,
         'orders' => $this->whenLoaded('order'),
         'products' => $this->whenLoaded('product'),
+        'name'=> Product::where('id',$this->product_id)->first()->name,
         'quantity' => $this->quantity
         ];
     }
