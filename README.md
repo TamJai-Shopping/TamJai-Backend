@@ -62,3 +62,48 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## แนะนำโปรเจค
+ ระบบ Tam jai (ตาม-ใจ) เป็นโปรเจคเว็บไซต์สำหรับซื้อขายสินค้า โดยในหน้าเว็บจะมีสินค้าหลายหมวดหมู่ที่วางขายอยู่ ผู้ใช้สามารถกดเลือกซื้อสินค้า หรือเปิดร้านค้าเพื่อขายในเว็บไซต์นี้ได้
+
+ ## ชื่อกลุ่ม และรายชื่อสมาชิกในกลุ่ม
+
+รหัสนิสิต-ชื่อนามสกุล 6310450051 ลีโอณิช เช็ง 
+GitHub: KenzieLeonic 
+รหัสนิสิต-ชื่อนามสกุล 6310450484 ณภัทร พัชโรภาสวงศ์ 
+GitHub: aungpor 
+รหัสนิสิต-ชื่อนามสกุล 6310450522 ธนบดี กังวลกิจ 
+GitHub: nax200 
+รหัสนิสิต-ชื่อนามสกุล 6310450620 พุธิตา จองศิริกุล 
+GitHub: ployputita 
+รหัสนิสิต-ชื่อนามสกุล 6310451120 ณัฐพงษ์ เหล่าเราวัฒนกุล 
+GitHub: S-Nattapong 
+รหัสนิสิต-ชื่อนามสกุล 6110451294 พชร สุวราวรนาถ 
+GitHub: Irisia
+
+## คำแนะนำในการติดตั้งโปรเจค
+
+docker-compose up -d
+docker-compose exec app npm install
+docker-compose exec app npm run dev
+
+## คำแนะนำในการติดตั้งโปรเจคสำหรับ deploy
+
+
+
+
+## คำแนะนำในการรันโปรเจคหรือการเข้าถึงหน้าเว็บไซต์
+
+
+
+
+## default username และ password สำหรับผู้ใช้แต่ละ role
+
+Role user
+Email: user01@api.example.com
+Password: userpass
+
+Role Admin
+Email: admin@api.example.com
+Password: adminpass
+
+## ระบุ release tag ของโปรเจคที่สมบูรณ์ ใช้ในการนำเสนอ
