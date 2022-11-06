@@ -41,11 +41,12 @@ class Product extends Model
         return $this->belongsTo(Image::class);
     }
 
-    public function productToStr() {
-        // $categories = Category::where('product_id',$id);
-        // foreach ($categories as $catagorie_name) {
-        //     $catagories_str[] = $catagorie_name->name;
-        // }
-        return "ดีครับ";
+    public function productToStr($id) {
+        $product = Product::find($id);
+        $result = "";
+        foreach ($product->categories as $category) {
+            $result .= ',' . $category->name;
+        }
+        return substr($result, 1);
     }
 }
