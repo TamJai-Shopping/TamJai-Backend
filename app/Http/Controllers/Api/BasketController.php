@@ -122,13 +122,13 @@ class BasketController extends Controller
     }
 
     public function totalPrice(Request $request){
-        // $user_id = $request->get('user_id');
         $user_id = 1;
-        $basket = Basket::where('user_id', $user_id)->get();
+        $basket = Basket::where('user_id', $user_id)->first();
         $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
-        foreach($basketItems->quantity as $quantity){
-            $basket->product_id = 
-            $basket->total_price = $basket->total_price + $quantity;
+        foreach($basketItems as $basketItem){
+            $product_id = $basketItem->product_id;
+            $product = Product::where('id', $product_id)->first();
+            $basket->total_price = $basket->total_price + $product->price * $basketItem->quantity;
         }
         if($request->has('selectShop'))$basket->selectShop = $request->get('selectShop');
         if($request->has('user_id'))$basket->user_id= $request->get('user_id');
