@@ -8,6 +8,7 @@ use App\Models\BasketItem;
 use App\Models\Shop;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Http\Resources\BasketResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -121,12 +122,12 @@ class BasketController extends Controller
     }
 
     public function totalPrice(Request $request){
-        // $user_id = 1;
-        // $basket = Basket::where('user_id', $user_id)->get();
-        $q = $request->query('q');
-        $basket = Basket::where('id', "%{$q}%")->get();
+        // $user_id = $request->get('user_id');
+        $user_id = 1;
+        $basket = Basket::where('user_id', $user_id)->get();
         $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
         foreach($basketItems->quantity as $quantity){
+            $basket->product_id = 
             $basket->total_price = $basket->total_price + $quantity;
         }
         if($request->has('selectShop'))$basket->selectShop = $request->get('selectShop');
@@ -147,9 +148,10 @@ class BasketController extends Controller
 
     }
 
-    public function createOrder(){
-        // $basket = Basket::where('id', 1)->get();
-        $basket = Basket::find(1);
+    public function createOrder(Request $request){
+        $user_id = $request->get('user_id');
+        $basket = Basket::where('id', $user_id)->get();
+        // $basket = Basket::find(1);
         $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
         $order = new Order();
         
@@ -158,7 +160,7 @@ class BasketController extends Controller
         $order->package_number = "PACTEST";
         $order->location = "LOCATIONTEST";
         $order->shop_id = $basket->selectShop;
-        $order->user_id = 1;
+        $order->user_id = $user_id;
         if ($order->save()) {
             return response()->json([
                 'success' => true,
@@ -174,9 +176,10 @@ class BasketController extends Controller
         
     }
 
-    public function createOrderItem(){
-        // $basket = Basket::where('id', 1)->get();
-        $basket = Basket::find(1);
+    public function createOrderItem(Request $request){
+        $user_id = $request->get('user_id');
+        $basket = Basket::where('id', $user_id)->get();
+        // $basket = Basket::find(1);
         $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
 
         $orderItemArray = [];
@@ -203,7 +206,8 @@ class BasketController extends Controller
     }
 
     public function initBasket(Request $request){
-        $basket = Basket::where('user_id', 4)->first();
+        $user_id = $request->get('user_id');
+        $basket = Basket::where('user_id', $user_id)->first();
         if(!$basket){
             $this->store($request);
         }

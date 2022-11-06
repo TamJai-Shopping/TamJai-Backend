@@ -69,6 +69,7 @@ Route::apiResource('/baskets', \App\Http\Controllers\Api\BasketController::class
 Route::get('/basket-item', [\App\Http\Controllers\Api\BasketItemController::class]);
 Route::apiResource('/basket-item', \App\Http\Controllers\Api\BasketItemController::class);
 Route::post('/basket-item/createBasketItem', [\App\Http\Controllers\Api\BasketItemController::class, 'createBasketItem']);
+Route::delete('/basket-item/deleteManyBasketItem/{ids}', [\App\Http\Controllers\Api\BasketItemController::class, 'deleteManyBasketItem']);
 
 
 Route::get('/comments', [\App\Http\Controllers\Api\CommentController::class]);

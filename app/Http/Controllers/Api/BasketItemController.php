@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Basket;
 use App\Models\BasketItem;
 use App\Models\Shop;
 use App\Http\Resources\BasketItemResource;
@@ -99,12 +100,12 @@ class BasketItemController extends Controller
     {
         $basket = Basket::find(1);
         $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
-        $basketItemArray = [];
-        foreach($basketItems as $basketItem){
-            $basketItemArray = $basketItem->id;
-        }
+        // $basketItemArray = [];
+        // foreach($basketItems as $basketItem){
+        //     $basketItemArray = $basketItem->id;
+        // }
 
-        if($basketItemArray->delete()){
+        if($basketItems->delete()){
             return response()->json([
                 'success' => true,
                 'message' => "BasketItem deleted"
@@ -147,5 +148,25 @@ class BasketItemController extends Controller
             'message' => 'BasketItem creation failed'
         ], Response::HTTP_BAD_REQUEST);
         
+    }
+
+    public function deleteManyBasketItem()
+    {
+        $basket = Basket::find(1);
+        $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
+        foreach($basketItems as $basketItem){
+            $basketItem->delete();
+        }
+
+        if(!$basketItems){
+            return response()->json([
+                'success' => true,
+                'message' => "BasketItem deleted"
+            ], Response::HTTP_OK);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "BasketItem delete failed"
+        ], Response::HTTP_BAD_REQUEST);
     }
 }
