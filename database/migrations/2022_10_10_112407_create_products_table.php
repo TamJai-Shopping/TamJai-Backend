@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('sell_amount')->default(0);
             $table->integer('alert_amount')->default(0);
             $table->integer('price');
-            $table->integer('rating')->default(0);
+            $table->double('rating', 2, 1, true)->default(0);
             $table->string('image_path')->nullable()->default(null);
             $table->foreignIdFor(\App\Models\Shop::class);
             $table->timestamps();

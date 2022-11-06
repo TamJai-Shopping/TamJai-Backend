@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReviewResource;
+use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -48,6 +49,12 @@ class ReviewController extends Controller
         $review->rating = $request->get('rating');
         $review->detail = $request->get('detail');
         $review->save();
+
+        $product = Product::find($review->product_id);
+        $product->rating = Review::where('product_id', $product->id)->sum('rating') / Review::where('product_id', $product->id)->count();
+        Log::info(Review::where('product_id', $product->id)->count());
+        $product->save();
+
         return response()->json([
             'success' => $success,
             'message' => $message,
