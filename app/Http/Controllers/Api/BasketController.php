@@ -47,7 +47,7 @@ class BasketController extends Controller
             'success' => false,
             'message' => 'Basket creation failed'
         ], Response::HTTP_BAD_REQUEST);
-        
+
     }
 
     /**
@@ -96,7 +96,7 @@ class BasketController extends Controller
     {
         $id = $basket->id;
         if($basket->delete()){
-            return respone()->json([
+            return response()->json([
                 'success' => true,
                 'message' => "Basket id{$id} with deleted"
             ], Response::HTTP_OK);

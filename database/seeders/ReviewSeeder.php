@@ -19,7 +19,7 @@ class ReviewSeeder extends Seeder
     {
         $amount = 200;
         $this->command->line("Generating ".$amount." reviews");
-        Review::factory()->create($amount);
+        Review::factory($amount)->create();
         foreach (Review::get() as $review) {
             $product = Product::find($review->product_id);
             $product->rating = Review::where('product_id', $product->id)->sum('rating') / Review::where('product_id', $product->id)->count();

@@ -65,7 +65,7 @@ class ImageController extends Controller
             $path = Review::where('product_id', $request->get('product_id'))->where('user_id', $request->get('user_id'));
         }
         try {
-            $path = $path->image_path;
+            $path = $path->image_path ?? 'images/product-default.png';
         } catch (\Exception $e) {
             $path = 'images/product-default.png';
         }
