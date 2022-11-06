@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
             $user->email = 'Irisia@gmail.com';
             $user->password = Hash::make('userpass');
             $user->phone_number = "0822387846";
+            $user->phone_number = "1234567890";
             $user->save();
         }
     }
