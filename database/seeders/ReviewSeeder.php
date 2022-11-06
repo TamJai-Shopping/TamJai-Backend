@@ -17,12 +17,12 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->line("Generating 1000 review");
-        Review::factory(1000)->create();
+        $amount = 200;
+        $this->command->line("Generating ".$amount." reviews");
+        Review::factory($amount)->create();
         foreach (Review::get() as $review) {
             $product = Product::find($review->product_id);
             $product->rating = Review::where('product_id', $product->id)->sum('rating') / Review::where('product_id', $product->id)->count();
-            Log::info(Review::where('product_id', $product->id)->count());
             $product->save();
         }
     }
