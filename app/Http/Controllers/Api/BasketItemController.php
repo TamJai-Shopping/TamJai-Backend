@@ -18,8 +18,8 @@ class BasketItemController extends Controller
      */
     public function index()
     {
-        $baskets = BasketItem::with(['basket'])->get();
-        return BasketItemResource::collection($baskets);
+        $basketItems = BasketItem::with(['basket'])->get();
+        return BasketItemResource::collection($basketItems);
     }
 
     /**
@@ -95,18 +95,24 @@ class BasketItemController extends Controller
      * @param  \App\Models\BasketItem  $basketItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BasketItem $basketItem)
+    public function destroy()
     {
-        $id = $basketItem->id;
-        if($basketItem->delete()){
-            return respone()->json([
+        $basket = Basket::find(1);
+        $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
+        $basketItemArray = [];
+        foreach($basketItems as $basketItem){
+            $basketItemArray = $basketItem->id;
+        }
+
+        if($basketItemArray->delete()){
+            return response()->json([
                 'success' => true,
-                'message' => "BasketItem id{$id} with deleted"
+                'message' => "BasketItem deleted"
             ], Response::HTTP_OK);
         }
         return response()->json([
             'success' => false,
-            'message' => "BasketItem id{$id} delete failed"
+            'message' => "BasketItem delete failed"
         ], Response::HTTP_BAD_REQUEST);
     }
 
@@ -114,8 +120,32 @@ class BasketItemController extends Controller
         $q = $request->query('q'); // เป็นตัวบอกตัวแปลที่ส่งเข้ามา ซึ่งจะต้องมี ? ก่อนแล้วค่อยชื่อตัวแปล ขั้นด้วย & เช่น
         // ?q=word&sort=DESC
         // $sort_variable = $request->query('sort') ?? 'asc';
-        $baskets = BasketItem::where('id', 'LIKE', "%{$q}%")
+        $basketItems = BasketItem::where('id', 'LIKE', "%{$q}%")
                          ->get();
-        return $baskets;
+        return $basketItems;
+    }
+
+    public function createBasketItem(Request $request){
+        $basket = Basket::where('user_id', 3)->first();
+
+        $basketItem = new BasketItem();
+        $basketItem->basket_id= $request->get('basket_id');
+        $basketItem->product_id= $request->get('product_id');
+        $basketItem->shop_id = $request->get('shop_id');
+        $basketItem->quantity = $request->get('quantity');
+
+        if ($basketItem->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'BasketItem created with id '.$basketItem->id,
+                'basket_id' => $basketItem->id
+            ], Response::HTTP_CREATED);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'BasketItem creation failed'
+        ], Response::HTTP_BAD_REQUEST);
+        
     }
 }

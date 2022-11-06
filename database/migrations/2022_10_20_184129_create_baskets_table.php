@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
             $table->integer('selectShop')->nullable()->default(null);
+            $table->integer('total_price')->default(0);
             $table->timestamps();
         });
     }

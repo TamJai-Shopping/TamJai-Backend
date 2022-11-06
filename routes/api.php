@@ -59,10 +59,17 @@ Route::get('/order-items', [\App\Http\Controllers\Api\OrderItemController::class
 Route::apiResource('/order-items', \App\Http\Controllers\Api\OrderItemController::class);
 
 Route::get('/baskets', [\App\Http\Controllers\Api\BasketController::class]);
+// Route::delete('/baskets/{basket}', [\App\Http\Controllers\Api\BasketController::class, 'destroy']);
+Route::get('/baskets/totalPrice', [\App\Http\Controllers\Api\BasketController::class, 'totalPrice']);
+Route::post('/baskets/createOrder', [\App\Http\Controllers\Api\BasketController::class, 'createOrder']);
+Route::post('/baskets/createOrderItem', [\App\Http\Controllers\Api\BasketController::class, 'createOrderItem']);
+Route::post('/baskets/initBasket', [\App\Http\Controllers\Api\BasketController::class, 'initBasket']);
 Route::apiResource('/baskets', \App\Http\Controllers\Api\BasketController::class);
 
 Route::get('/basket-item', [\App\Http\Controllers\Api\BasketItemController::class]);
 Route::apiResource('/basket-item', \App\Http\Controllers\Api\BasketItemController::class);
+Route::post('/basket-item/createBasketItem', [\App\Http\Controllers\Api\BasketItemController::class, 'createBasketItem']);
+
 
 Route::get('/comments', [\App\Http\Controllers\Api\CommentController::class]);
 Route::apiResource('/comments', \App\Http\Controllers\Api\CommentController::class);

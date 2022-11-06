@@ -18,6 +18,7 @@ class BasketResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'selectShop' => $this->selectShop,
+            'total_price' => $this->total_price,
             'basketItems' => BasketItemResource::collection($this->whenLoaded('basketItems')),          
             
         ];
