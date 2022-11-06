@@ -82,9 +82,9 @@ GitHub: Irisia
 
 ## คำแนะนำในการติดตั้งโปรเจค
 
-docker-compose up -d
-docker-compose exec app npm install
-docker-compose exec app npm run dev
+- docker-compose up -d
+- docker-compose exec app npm install
+- docker-compose exec app npm run dev
 
 ## คำแนะนำในการติดตั้งโปรเจคสำหรับ deploy
 
@@ -98,12 +98,12 @@ docker-compose exec app npm run dev
 
 ## default username และ password สำหรับผู้ใช้แต่ละ role
 
-Role user
-Email: user01@api.example.com
-Password: userpass
-
-Role Admin
-Email: admin@api.example.com
-Password: adminpass
+- Role user
+- Email: user01@api.example.com
+-Password: userpass
+-----------------------------------
+- Role Admin
+- Email: admin@api.example.com
+- Password: adminpass
 
 ## ระบุ release tag ของโปรเจคที่สมบูรณ์ ใช้ในการนำเสนอ
