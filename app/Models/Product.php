@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,5 +39,13 @@ class Product extends Model
 
     public function image() {
         return $this->belongsTo(Image::class);
+    }
+
+    public function productToStr() {
+        // $categories = Category::where('product_id',$id);
+        // foreach ($categories as $catagorie_name) {
+        //     $catagories_str[] = $catagorie_name->name;
+        // }
+        return "ดีครับ";
     }
 }

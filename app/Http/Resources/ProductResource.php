@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -15,6 +16,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        foreach(CategoryResource::collection($this->category))
         return [
             'id' => $this->id,
             'name'=> $this->name,
@@ -26,6 +28,7 @@ class ProductResource extends JsonResource
             'price'=> $this->price,
             'rating'=> $this->rating,
             'shop_id'=> $this->shop_id,
+            'categories_str'=> Product::productToStr(),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
