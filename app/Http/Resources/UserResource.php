@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'shop_id' => ShopResource::collection($this->whenLoaded('shops')),
+            'phone_number' => $this->phone_number,
             'orders' => OrderResource::collection($this->whenLoaded('orders')),
         ];
     }

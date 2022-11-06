@@ -42,6 +42,9 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
+Route::post('/signup',[\App\Http\Controllers\Api\UserController::class, 'store']);
+Route::apiResource('/signup', \App\Http\Controllers\Api\UserController::class);
+
 Route::get('/products/search', [\App\Http\Controllers\Api\ProductController::class, 'search']);
 Route::apiResource('/products', \App\Http\Controllers\Api\ProductController::class);
 
