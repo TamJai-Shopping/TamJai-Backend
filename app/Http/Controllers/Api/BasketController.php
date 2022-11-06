@@ -202,7 +202,10 @@ class BasketController extends Controller
         ], Response::HTTP_BAD_REQUEST);
     }
 
-    
-
-
+    public function initBasket(Request $request){
+        $basket = Basket::where('user_id', 4)->first();
+        if(!$basket){
+            $this->store($request);
+        }
+    }
 }

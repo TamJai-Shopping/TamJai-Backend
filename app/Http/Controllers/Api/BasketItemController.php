@@ -124,4 +124,28 @@ class BasketItemController extends Controller
                          ->get();
         return $basketItems;
     }
+
+    public function createBasketItem(Request $request){
+        $basket = Basket::where('user_id', 3)->first();
+
+        $basketItem = new BasketItem();
+        $basketItem->basket_id= $request->get('basket_id');
+        $basketItem->product_id= $request->get('product_id');
+        $basketItem->shop_id = $request->get('shop_id');
+        $basketItem->quantity = $request->get('quantity');
+
+        if ($basketItem->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'BasketItem created with id '.$basketItem->id,
+                'basket_id' => $basketItem->id
+            ], Response::HTTP_CREATED);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'BasketItem creation failed'
+        ], Response::HTTP_BAD_REQUEST);
+        
+    }
 }
