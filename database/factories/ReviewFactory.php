@@ -21,7 +21,7 @@ class ReviewFactory extends Factory
         return [
             'product_id' => Product::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id,
-            'rating' => fake()->numberBetween(0, 5),
+            'rating' => fake()->numberBetween(1, 5),
             'detail' => fake()->realText(100),
             'created_at' => now()->subSeconds(fake()->numberBetween(100, 10000)),
         ];
