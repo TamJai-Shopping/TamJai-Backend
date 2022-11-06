@@ -9,7 +9,6 @@ use App\Models\Review;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
 class ImageController extends Controller
 {
