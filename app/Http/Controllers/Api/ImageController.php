@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
@@ -25,14 +26,8 @@ class ImageController extends Controller
                 'success' => false,
                 'message' => 'Image upload fail'
             ], Response::HTTP_BAD_REQUEST);
-        if (is_null($request->get('product_id'))) {
-            return response()->json([
-                'success' => false,
-                'message' => 'product not found'
-            ], Response::HTTP_BAD_REQUEST);
-        }
         if ($request->has('user_id')) return $this->storeReviewImage($request);
-
+        if ($request->has('shop_id')) return $this->storeShopImage($request);
 //        Log::info($request->file())
         $path = $request->file('image')->store('public/images');
         $path = trim(strstr($path,"images"));
@@ -58,12 +53,26 @@ class ImageController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function storeShopImage(Request $request) {
+        $path = $request->file('image')->store('public/images');
+        $path = trim(strstr($path,"images"));
+        $shop = Shop::where('id', $request->get('shop_id'))->first();
+        $shop->image_path = $path;
+        $shop->save();
+        return response()->json([
+            'success' => true,
+            'path' => $path
+        ], Response::HTTP_OK);
+    }
+
     public function search(Request $request) {
         $product_id = $request->query('product_id');
         $path = Product::find($product_id);
-        if ($request->has('user_id')) {
+        if ($request->has('user_id'))
             $path = Review::where('product_id', $request->get('product_id'))->where('user_id', $request->get('user_id'));
-        }
+        if ($request->has('shop_id'))
+            $path = Shop::where('id', $request->get('shop_id'))->first();
+
         try {
             $path = $path->image_path ?? 'images/product-default.png';
         } catch (\Exception $e) {
