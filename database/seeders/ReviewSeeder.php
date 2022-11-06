@@ -17,13 +17,13 @@ class ReviewSeeder extends Seeder
      */
     public function run()
     {
-        // $amount = 200;
-        // $this->command->line("Generating ".$amount." reviews");
-        // Review::factory()->create($amount);
-        // foreach (Review::get() as $review) {
-        //     $product = Product::find($review->product_id);
-        //     $product->rating = Review::where('product_id', $product->id)->sum('rating') / Review::where('product_id', $product->id)->count();
-        //     $product->save();
-        // }
+        $amount = 200;
+        $this->command->line("Generating ".$amount." reviews");
+        Review::factory($amount)->create();
+        foreach (Review::get() as $review) {
+            $product = Product::find($review->product_id);
+            $product->rating = Review::where('product_id', $product->id)->sum('rating') / Review::where('product_id', $product->id)->count();
+            $product->save();
+        }
     }
 }

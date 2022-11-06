@@ -20,7 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('orderItems')->get();
+        $orders = Order::with('orderItems','user')->get();
         return OrderResource::collection($orders);
     }
 
@@ -38,6 +38,7 @@ class OrderController extends Controller
         $order->package_number = $request->get('package_number') ?? null;
         $order->location = $request->get('location');
         $order->shop_id= $request->get('shop_id');
+        $order->user_id= $request->get('user_id');
         // $order->shop_id = new Shop();
         // $shop->shop_id = Shop::where('id',$request->get('shop_id'))->first();
         // $order->shop_id = $shop;
