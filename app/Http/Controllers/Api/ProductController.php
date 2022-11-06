@@ -7,6 +7,8 @@ use App\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -32,8 +34,10 @@ class ProductController extends Controller
         $product->price = $request->get('price');
         $product->rating = $request->get('rating');
         $product->shop_id = $request->get('shop_id');
-
+        $categories = $request->get('categories');
+        $categorie_ids = $this->syncCatagories($categories);
         if ($product->save()) {
+            $product->categories()->sync($categorie_ids);
             return response()->json([
                 'success' => true,
                 'message' => 'Product created with id '.$product->id,
@@ -62,8 +66,11 @@ class ProductController extends Controller
         if ($request->has('image_path')) $product->image_path = $request->get('image_path');
         if ($request->has('price')) $product->price = $request->get('price');
         if ($request->has('rating')) $product->rating = $request->get('rating');
-
+        if ($request->has('categories')){
+            $categories = $request->get('categories');
+        }
         if ($product->save()) {
+            $categorie_ids = $this->syncCatagories($categories);
             return response()->json([
                 'success' => true,
                 'message' => 'Product updated with id '.$product->id,
@@ -101,6 +108,31 @@ class ProductController extends Controller
         $product = Product::where('name', 'LIKE', "%{$q}%")
             ->get();
         return $product;
+    }
+
+    private function syncCatagories($categories) {
+        // explode() -> แยกสตริงเป็นก้อนๆ
+        $categories= explode(',', $categories);
+        // แปลง string เพราะมี ' ' ขั้นหน้า เลยต้องตัดออก
+        $categories = array_map(function ($v) {
+            // associative function (unnamed function / closure)
+
+            // uppercase first
+            return Str::ucfirst(trim($v));
+        }, $categories);
+
+        $categorie_ids = [];
+        foreach ($categories as $catagorie_name) {
+            $category = Category::where('name', $catagorie_name)->first();
+            if (!$category) {
+                $category = new Category();
+                $category->name = $catagorie_name;
+                $category->save();
+            }
+            $categorie_ids[] = $category->id;
+        }
+
+        return $categorie_ids;
     }
 
 }
