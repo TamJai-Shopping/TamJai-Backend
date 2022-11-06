@@ -77,7 +77,7 @@ GitHub: nax200
 GitHub: ployputita 
 - รหัสนิสิต-ชื่อนามสกุล 6310451120 ณัฐพงษ์ เหล่าเราวัฒนกุล 
 GitHub: S-Nattapong 
-- รหัสนิสิต-ชื่อนามสกุล 6110451294 พชร สุวราวรนาถ 
+- รหัสนิสิต-ชื่อนามสกุล 630451294 พชร สุวราวรนาถ 
 GitHub: Irisia
 
 ## คำแนะนำในการติดตั้งโปรเจค
@@ -100,10 +100,11 @@ GitHub: Irisia
 
 - Role user
 - Email: user01@api.example.com
--Password: userpass
+- Password: userpass
 -----------------------------------
 - Role Admin
 - Email: admin@api.example.com
 - Password: adminpass
 
 ## ระบุ release tag ของโปรเจคที่สมบูรณ์ ใช้ในการนำเสนอ
+
