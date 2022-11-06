@@ -52,7 +52,6 @@ class ReviewController extends Controller
 
         $product = Product::find($review->product_id);
         $product->rating = Review::where('product_id', $product->id)->sum('rating') / Review::where('product_id', $product->id)->count();
-        Log::info(Review::where('product_id', $product->id)->count());
         $product->save();
 
         return response()->json([
