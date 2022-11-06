@@ -65,12 +65,12 @@ class ProductController extends Controller
         if ($request->has('alert_amount')) $product->alert_amount = $request->get('alert_amount');
         if ($request->has('image_path')) $product->image_path = $request->get('image_path');
         if ($request->has('price')) $product->price = $request->get('price');
-        if ($request->has('rating')) $product->rating = $request->get('rating');
-        if ($request->has('categories')){
-            $categories = $request->get('categories');
-        }
+
+        //if ($request->has('categories')){
+        //    $categories = $request->get('categories');
+        //}
         if ($product->save()) {
-            $categorie_ids = $this->syncCatagories($categories);
+        //    $categorie_ids = $this->syncCatagories($categories);
             return response()->json([
                 'success' => true,
                 'message' => 'Product updated with id '.$product->id,
