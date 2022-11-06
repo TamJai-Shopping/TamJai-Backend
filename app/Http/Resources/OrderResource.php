@@ -21,6 +21,7 @@ class OrderResource extends JsonResource
             'package_number' => $this->package_number,
             'location' => $this->location,
             'shop_id' => $this->shop_id,
+            'user_id' => $this->user_id,
             'order_items'=>$this->whenLoaded('orderItems')
         ];
     }

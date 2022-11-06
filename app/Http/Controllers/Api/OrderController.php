@@ -37,6 +37,7 @@ class OrderController extends Controller
         $order->package_number = $request->get('package_number') ?? null;
         $order->location = $request->get('location');
         $order->shop_id= $request->get('shop_id');
+        $order->user_id= $request->get('user_id');
         // $order->shop_id = new Shop();
         // $shop->shop_id = Shop::where('id',$request->get('shop_id'))->first();
         // $order->shop_id = $shop;
@@ -88,6 +89,7 @@ class OrderController extends Controller
         if($request->has('package_number'))$order->package_number = $request->get('package_number');
         if($request->has('location'))$order->location = $request->get('location');
         if($request->has('shop_id'))$order->shop_id= $request->get('shop_id');
+        if($request->has('user_id'))$order->user_id= $request->get('user_id');
         if ($order->save()) {
             return response()->json([
                 'success' => true,

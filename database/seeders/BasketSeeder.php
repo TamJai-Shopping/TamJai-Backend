@@ -18,6 +18,8 @@ class BasketSeeder extends Seeder
         $this->command->line("Generating baskets");
         $basket = new Basket;
         $basket->user_id= 1;
+        $basket->selectShop = 1;
+        $basket->total_price = 0;
         $basket->save();
     }
 }
