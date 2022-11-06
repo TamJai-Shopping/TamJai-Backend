@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Basket;
 use App\Models\BasketItem;
 use App\Models\Shop;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Http\Resources\BasketResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -34,6 +36,7 @@ class BasketController extends Controller
         $basket = new Basket();
         $basket->user_id= $request->get('user_id');
         $basket->selectShop = $request->get('selectShop');
+        $basket->total_price = $request->get('total_price');
 
         if ($basket->save()) {
             return response()->json([
@@ -58,7 +61,7 @@ class BasketController extends Controller
      */
     public function show(Basket $basket)
     {
-        return (new BasketResource($basket->loadMissing(['basket_items'])))->response();
+        return (new BasketResource($basket->loadMissing(['basketItems'])))->response();
     }
 
     /**
@@ -72,6 +75,7 @@ class BasketController extends Controller
     {
         if($request->has('selectShop'))$basket->selectShop = $request->get('selectShop');
         if($request->has('user_id'))$basket->user_id= $request->get('user_id');
+        if($request->has('total_price'))$basket->total_price= $request->get('total_price');
         if ($basket->save()) {
             return response()->json([
                 'success' => true,
@@ -96,7 +100,7 @@ class BasketController extends Controller
     {
         $id = $basket->id;
         if($basket->delete()){
-            return respone()->json([
+            return response()->json([
                 'success' => true,
                 'message' => "Basket id{$id} with deleted"
             ], Response::HTTP_OK);
@@ -115,4 +119,90 @@ class BasketController extends Controller
                          ->get();
         return $baskets;
     }
+
+    public function totalPrice(Request $request){
+        // $user_id = 1;
+        // $basket = Basket::where('user_id', $user_id)->get();
+        $q = $request->query('q');
+        $basket = Basket::where('id', "%{$q}%")->get();
+        $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
+        foreach($basketItems->quantity as $quantity){
+            $basket->total_price = $basket->total_price + $quantity;
+        }
+        if($request->has('selectShop'))$basket->selectShop = $request->get('selectShop');
+        if($request->has('user_id'))$basket->user_id= $request->get('user_id');
+
+        if ($basket->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Basket updated with id '.$basket->id,
+                'basket_id' => $basket->id
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Basket update failed'
+        ], Response::HTTP_BAD_REQUEST);
+
+    }
+
+    public function createOrder(){
+        // $basket = Basket::where('id', 1)->get();
+        $basket = Basket::find(1);
+        $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
+        $order = new Order();
+        
+        $order->status = "statusTest";
+        $order->total_price = $basket->total_price;
+        $order->package_number = "PACTEST";
+        $order->location = "LOCATIONTEST";
+        $order->shop_id = $basket->selectShop;
+        $order->user_id = 1;
+        if ($order->save()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'order created with id '.$order->id,
+                'order_id' => $order->id
+            ], Response::HTTP_CREATED);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'orderItem creation failed'
+        ], Response::HTTP_BAD_REQUEST);
+        
+    }
+
+    public function createOrderItem(){
+        // $basket = Basket::where('id', 1)->get();
+        $basket = Basket::find(1);
+        $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
+
+        $orderItemArray = [];
+        foreach($basketItems as $basketItem){
+            $orderItem = new OrderItem();
+            $orderItem->order_id = 22;
+            $orderItem->product_id = $basketItem->product_id;
+            $orderItem->quantity = $basketItem->quantity;   
+            $orderItem->save();
+            $orderItemArray = $orderItem;
+        }
+        if ($orderItemArray) {
+            return response()->json([
+                'success' => true,
+                'message' => 'orderItem created '
+                // 'orderItem_id' => $orderItem->id
+            ], Response::HTTP_CREATED);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'orderItem creation failed'
+        ], Response::HTTP_BAD_REQUEST);
+    }
+
+    
+
+
 }

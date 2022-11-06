@@ -22,5 +22,12 @@ class BasketItemSeeder extends Seeder
         $basket->shop_id= 1;
         $basket->quantity= 22;
         $basket->save();
+
+        $basket = new BasketItem;
+        $basket->basket_id= 1;
+        $basket->product_id= 2;
+        $basket->shop_id= 1;
+        $basket->quantity= 23;
+        $basket->save();
     }
 }
