@@ -118,7 +118,7 @@ docker run --rm \
 
 ## คำแนะนำในการรันโปรเจคหรือการเข้าถึงหน้าเว็บไซต์
 > require: ต้องรันโปรเจคที่ front-end ก่อน <br>
-เข้าผ่าน url localhost:3000
+เข้าผ่าน url [http://localhost:3000](http://localhost:3000)
 
 
 
