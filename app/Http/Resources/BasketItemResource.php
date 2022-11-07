@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Product;
+use App\Models\Shop;
 
 class BasketItemResource extends JsonResource
 {
@@ -18,7 +20,10 @@ class BasketItemResource extends JsonResource
             'id' => $this->id,
             'baskets' => $this->whenLoaded('basket'),
             'product_id' => $this->product_id,
+            'product_name' => Product::find($this->product_id)->name,
+            'product_price' => Product::find($this->product_id)->price,
             'shop_id' => $this->shop_id,
+            'shop_name' => Shop::find($this->shop_id)->name,
             'quantity' => $this->quantity,
             
             

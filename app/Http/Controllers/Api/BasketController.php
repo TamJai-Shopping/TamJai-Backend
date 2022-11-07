@@ -149,10 +149,11 @@ class BasketController extends Controller
     }
 
     public function createOrder(Request $request){
-        $user_id = $request->get('user_id');
-        $basket = Basket::where('id', $user_id)->get();
+        // $user_id = $request->get('user_id');
+        $user_id = 1;
+        $basket = Basket::where('user_id', $user_id)->first();
         // $basket = Basket::find(1);
-        $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
+        // $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
         $order = new Order();
         
         $order->status = "statusTest";
@@ -177,8 +178,9 @@ class BasketController extends Controller
     }
 
     public function createOrderItem(Request $request){
-        $user_id = $request->get('user_id');
-        $basket = Basket::where('id', $user_id)->get();
+        // $user_id = $request->get('user_id');
+        $user_id = 1;
+        $basket = Basket::where('user_id', $user_id)->first();
         // $basket = Basket::find(1);
         $basketItems = BasketItem::where('basket_id', $basket->id)->where('shop_id', $basket->selectShop)->get();
 
