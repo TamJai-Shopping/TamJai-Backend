@@ -37,7 +37,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY); // 422
         }
 
-        if (! $token = JWTAuth::attempt($validator->validated())) { // attempt จะสร้าง token ถ้าสำเร็จจะ return null
+        if (! $token = JWTAuth::attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED); // 401
         }
 
@@ -51,7 +51,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return new UserResource( auth()->user() );
+        return new UserResource(auth()->user());
     }
 
     /**
@@ -87,8 +87,9 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => config('jwt.ttl') * 60, // แปลงจาก 60 นาทีเป็นวินาที
-            //    'user' => new UserResource(auth()->user())
+            'expires_in' => config('jwt.ttl') * 60,
+        //    'user' => new UserResource(auth()->user())
         ]);
     }
 }
+
