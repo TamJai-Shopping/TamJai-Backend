@@ -62,11 +62,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
 ## แนะนำโปรเจค
  ระบบ Tam jai (ตาม-ใจ) เป็นโปรเจคเว็บไซต์สำหรับซื้อขายสินค้า โดยในหน้าเว็บจะมีสินค้าหลายหมวดหมู่ที่วางขายอยู่ ผู้ใช้สามารถกดเลือกซื้อสินค้า หรือเปิดร้านค้าเพื่อขายในเว็บไซต์นี้ได้
 
- ## ชื่อกลุ่ม และรายชื่อสมาชิกในกลุ่ม
-
+## ชื่อกลุ่ม และรายชื่อสมาชิกในกลุ่ม
+ 
+### กลุ่ม Tam-Jai (ทำใจ)
 - รหัสนิสิต-ชื่อนามสกุล 6310450051 ลีโอณิช เช็ง 
 GitHub: KenzieLeonic 
 - รหัสนิสิต-ชื่อนามสกุล 6310450484 ณภัทร พัชโรภาสวงศ์ 
@@ -81,6 +83,30 @@ GitHub: S-Nattapong
 GitHub: Irisia
 
 ## คำแนะนำในการติดตั้งโปรเจค
+> require: ต้องติดตั้ง docker และเปิดใช้งานอยู่
+1. change directory ไปที่ ๆ ต้องการติดตั้ง
+2. ใช้คำสั่งในการโหลดโปรเจค
+```sh
+git clone https://github.com/TamJai-Shopping/TamJai-Backend.git
+```
+3. ใช้คำสั่งกำหนด keyword ในการรัน ด้วย
+```sh
+alias sail='./vendor/bin/sail'
+```
+4. `cp .env.example .env`
+5.
+```sh
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+```
+6. `sail up -d` เพื่อรันโปรเจคในรูปแบบ background
+7. `sail artisan key:generate`
+8. สร้างฐานข้อมูล `sail artisan migrate:fresh` หากต้องการให้จำลองข้อมูลด้วยให้ใส่ `--seed` ที่ด้านหลัง
+
 
 - docker-compose up -d
 - docker-compose exec app npm install
@@ -90,9 +116,9 @@ GitHub: Irisia
 
 
 
-
 ## คำแนะนำในการรันโปรเจคหรือการเข้าถึงหน้าเว็บไซต์
-
+> require: ต้องรันโปรเจคที่ front-end ก่อน
+เข้าผ่าน url localhost:3000
 
 
 
@@ -107,4 +133,4 @@ GitHub: Irisia
 - Password: adminpass
 
 ## ระบุ release tag ของโปรเจคที่สมบูรณ์ ใช้ในการนำเสนอ
-
+> v1.0.0
