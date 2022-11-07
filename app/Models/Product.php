@@ -41,6 +41,11 @@ class Product extends Model
         return $this->belongsTo(Image::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
     public function productToStr($id) {
         $product = Product::find($id);
         $result = "";

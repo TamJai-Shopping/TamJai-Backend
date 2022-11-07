@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
         $category = Category::first();
         if (!$category) {
             $this->command->line("Generating category");
-            $categories = ['Book', 'Food', 'Technology'];
+            $categories = ['Vegetable', 'Fashion', 'Electronic', 'Camera', 'Sport', 'Game'];
             collect($categories)->each(function ($category_name, $key) {
                 $category = new Category;
                 $category->name = $category_name;
